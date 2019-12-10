@@ -1,10 +1,13 @@
 import flask
 from flask import request, jsonify
 
+from flask_cors import CORS
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-
-wharehouse = [
+# fix the CORS issue of same port accessing
+CORS(app)
+#  replace with a database or cython files pulling info off the sensors
+warehouse = [
     {'id': 0,
      'title': 'Tool and Dye',
      'owner': 'John Smith',
@@ -25,16 +28,16 @@ wharehouse = [
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Wharehouse Control API</h1>
-<p>A prototype API for reading and updating remote wharehouses</p>'''
+    return '''<h1>Warehouse Control API</h1>
+<p>A prototype API for reading and updating remote warehouses</p>'''
 
 
-@app.route('/api/v1/wharehouse/all', methods=['GET'])
+@app.route('/api/v1/warehouse/all', methods=['GET'])
 def api_all():
-    return jsonify(wharehouse)
+    return jsonify(warehouse)
 
 
-@app.route('/api/v1/wharehouse', methods=['GET'])
+@app.route('/api/v1/warehouse', methods=['GET'])
 def api_id():
     query_parameters = request.args
 
@@ -42,11 +45,12 @@ def api_id():
     zone_1 = query_parameters.get('zone_1')
     zone_2 = query_parameters.get('zone_2')
     zone_3 = query_parameters.get('zone_3')
+    
 
     results = []
 
-    for w in wharehouse:
-        if w['id'] == id:
+    for w in warehouse:
+        if w['id'] == int(id):
             results.append(w)
         if zone_1 and w['zone_1_temp'] > int(zone_1):
             results.append(w)
