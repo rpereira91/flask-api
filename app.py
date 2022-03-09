@@ -1,29 +1,51 @@
 import flask
 from flask import request, jsonify
-
+from random import seed
+from random import random
 from flask_cors import CORS
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 # fix the CORS issue of same port accessing
 CORS(app)
+seed(1)
 #  replace with a database or cython files pulling info off the sensors
 warehouse = [
     {'id': 0,
      'title': 'Tool and Dye',
      'owner': 'John Smith',
-     'zone_1_temp': 34.5,
-     'zone_2_temp': 36.5,
-     'zone_3_temp': 46.5,
+     'zone_1_temp': random() * 150,
+     'zone_2_temp': random() * 150,
+     'zone_3_temp': random() * 150,
      },
     {'id': 1,
-     'title': 'Hill Street Steel',
+     'title': 'Jackson Street Steel',
      'owner': 'Andrew Jackson',
-     'zone_1_temp': 54.5,
-     'zone_2_temp': 46.5,
-     'zone_3_temp': 43.5,
-     }
-
-]
+     'zone_1_temp': random() * 150,
+     'zone_2_temp': random() * 150,
+     'zone_3_temp': random() * 150,
+    },
+    {'id': 2,
+     'title': 'Edwards Books',
+     'owner': 'Husnain Noel',
+     'zone_1_temp': random() * 150,
+     'zone_2_temp': random() * 150,
+     'zone_3_temp': random() * 150,
+    },
+    {'id': 3,
+     'title': 'Kirkland Inc.',
+     'owner': 'Demi Munoz',
+     'zone_1_temp': random() * 150,
+     'zone_2_temp': random() * 150,
+     'zone_3_temp': random() * 150,
+    },
+    {'id': 4,
+     'title': 'Over the Hill Steel',
+     'owner': 'Pola Hill',
+     'zone_1_temp': random() * 150,
+     'zone_2_temp': random() * 150,
+     'zone_3_temp': random() * 150,
+    },  
+    ]
 
 
 @app.route('/', methods=['GET'])
